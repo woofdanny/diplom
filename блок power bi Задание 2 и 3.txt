@@ -1,0 +1,23 @@
+Задание 2:
+
+SELECT o.customer_id
+FROM orders o
+JOIN order_lines ol ON o.order_id = ol.order_id
+JOIN products p ON ol.product_id = p.product_id
+WHERE o.order_date BETWEEN '2021-08-01' AND '2021-08-15'
+  AND p.category = 'Корм для животных'
+  AND p.product_name != 'Корм Kitekat для кошек, с кроликом в соусе, 85 г'
+GROUP BY o.customer_id
+HAVING COUNT(DISTINCT p.product_id) >= 2;
+
+
+Задание 3:
+SELECT p.product_name, COUNT(ol.product_id) as product_count
+FROM orders o
+JOIN order_lines ol ON o.order_id = ol.order_id
+JOIN products p ON ol.product_id = p.product_id
+WHERE o.city = 'СПб'
+  AND o.order_date BETWEEN '2021-08-15' AND '2021-08-30'
+GROUP BY p.product_name
+ORDER BY product_count DESC
+LIMIT 5;
